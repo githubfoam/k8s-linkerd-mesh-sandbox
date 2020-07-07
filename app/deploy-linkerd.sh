@@ -5,8 +5,9 @@ set -o nounset
 set -o xtrace
 # set -eox pipefail #safety for script
 
-echo "============================Install Linkerd=============================================================="
 # https://linkerd.io/2/getting-started/
+echo "============================Install Linkerd=============================================================="
+
 curl -sL https://run.linkerd.io/install | sh
 
 # Linkerd stable-2.8.1 was successfully installed
@@ -29,7 +30,10 @@ export PATH=$PATH:$HOME/.linkerd2/bin
 # see https://linkerd.io/checks/#l5d-existence-linkerd-config for hints
 linkerd check --pre
 linkerd install | kubectl apply -f -
-linkerd check
+
+# Post "http://localhost:42397/api/v1/Version": context deadline exceeded
+# linkerd check
+
 linkerd dashboard &
 
 # Ensure the Linkerd ConfigMap exists
