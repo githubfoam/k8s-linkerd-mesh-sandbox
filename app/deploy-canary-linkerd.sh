@@ -34,9 +34,16 @@ linkerd dashboard &
 echo "============================Linkerd Flagger Canary Deployments=============================================================="
 kubectl get pods --all-namespaces
 kubectl create ns linkerd #Create a namespace called Linkerd
-# linkerd install | kubectl apply -f - #install Linkerd with the Cli tool
-#Error from server (NotFound): error when creating "github.com/weaveworks/flagger//kustomize/linkerd": namespaces "linkerd" not found
+
 kubectl apply -k github.com/weaveworks/flagger//kustomize/linkerd #Install Flagger in the linkerd namespace
+echo echo "Waiting for kubernetes be ready ..."
+for i in {1..150}; do # Timeout after 5 minutes, 60x5=300 secs
+      if kubectl get pods --namespace=kube-system  | grep ContainerCreating ; then
+        sleep 10
+      else
+        break
+      fi
+done
 kubectl get pods --all-namespaces
 
 # kubectl -n linkerd rollout status deploy/flagger

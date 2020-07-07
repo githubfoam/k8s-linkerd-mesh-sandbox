@@ -22,7 +22,7 @@ export PATH=$PATH:$HOME/.linkerd2/bin
 
 # By default linkerd install will create a linkerd namespace.
 # Prior to installation, that namespace should not exist
-linkerd check --pre --linkerd-namespace linkerd
+# linkerd check --pre --linkerd-namespace linkerd
 
 # 'linkerd-config' config map exists
 # configmaps "linkerd-config" not found
