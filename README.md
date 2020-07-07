@@ -7,4 +7,5 @@ Travis (.com) branch:
 
 ~~~~
 https://linkerd.io/2/getting-started/
+https://docs.flagger.app/tutorials/linkerd-progressive-delivery#a-b-testing
 ~~~~

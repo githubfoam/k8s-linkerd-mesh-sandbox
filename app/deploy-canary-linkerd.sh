@@ -9,31 +9,9 @@ set -o xtrace
 echo "============================Install Linkerd=============================================================="
 curl -sL https://run.linkerd.io/install | sh
 
-# Linkerd stable-2.8.1 was successfully installed
-# Add the linkerd CLI to your path with:
-#   export PATH=$PATH:/home/travis/.linkerd2/bin
-# Now run:
-#     linkerd check --pre                     # validate that Linkerd can be installed
-#     linkerd install | kubectl apply -f -    # install the control plane into the 'linkerd' namespace
-#     linkerd check                           # validate everything worked!
-#     linkerd dashboard                       # launch the dashboard
-
 export PATH=$PATH:$HOME/.linkerd2/bin
-# linkerd check --pre
-# linkerd check
-
-# Cannot find Linkerd: configmaps "linkerd-config" not found
-# Validate the install with: linkerd check
 linkerd dashboard &
 
-# linkerd version
-# kubectl -n linkerd get deploy
-# `linkerd install | kubectl apply -f -` #namespace/linkerd: No such file or directory
-
-
-#https://docs.flagger.app/tutorials/linkerd-progressive-delivery#a-b-testing
-# Prerequisites
-# Flagger requires a Kubernetes cluster v1.11 or newer and Linkerd 2.4 or newer
 echo "============================Linkerd Flagger Canary Deployments=============================================================="
 kubectl get pods --all-namespaces
 kubectl create ns linkerd #Create a namespace called Linkerd
@@ -50,7 +28,6 @@ for i in {1..150}; do # Timeout after 5 minutes, 60x5=300 secs
 done
 kubectl get pods --all-namespaces
 
-# kubectl -n linkerd rollout status deploy/flagger
 
 # Bootstrap
 # Flagger takes a Kubernetes deployment and optionally a horizontal pod autoscaler (HPA)
